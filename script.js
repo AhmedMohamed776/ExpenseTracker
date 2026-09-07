@@ -90,7 +90,7 @@ addTransactionButton.onclick = function () {
     form1.style.display = "none";
     form2.style.display = "block";
     document.getElementById("transactionName").focus();
-  document.getElementById("transactionDate").value = fullDate;
+    document.getElementById("transactionDate").value = fullDate;
   }
 };
 document.querySelectorAll(".cancelBTN").forEach(function (element) {
@@ -145,6 +145,7 @@ form1.onsubmit = function (event) {
   document.getElementById("navList").style.display = "block";
   document.getElementById("box").style.display = "block";
   document.getElementById("hr").style.display = "block";
+  clearBTN.style.display = "block";
 };
 
 let transactionNumber = 1;
@@ -172,9 +173,9 @@ form2.onsubmit = function (event) {
       transactionAmount,
     );
     form2.style.display = "none";
-      document.querySelectorAll(".values").forEach(function (element) {
-    element.value = "";
-  });
+    document.querySelectorAll(".values").forEach(function (element) {
+      element.value = "";
+    });
     document.getElementById("navList").style.display = "block";
     document.getElementById("box").style.display = "block";
     transactionNumber++;
@@ -199,6 +200,17 @@ closBTN.onclick = () => {
   document.getElementById("report").style.display = "none";
   document.getElementById("box2").style.display = "block";
 };
+let clearBTN = document.getElementById("clearData");
+
+clearBTN.onclick = function () {
+  let confirmMSG = confirm(
+    "سيتم مسح جميع بيانات الموقع, بما في ذلك بيانات المبلغ وجميع المعاملات, هل تريد الاستمرار؟",
+  );
+  if (confirmMSG) {
+    localStorage.clear();
+    window.location.reload();
+  }
+};
 
 window.onload = function () {
   aData = JSON.parse(localStorage.getItem("amountData"));
@@ -220,5 +232,8 @@ window.onload = function () {
       );
       transactionNumber++;
     });
+  }
+  if (amountValue) {
+    clearBTN.style.display = "block";
   }
 };
