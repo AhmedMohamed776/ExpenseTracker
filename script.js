@@ -7,10 +7,21 @@ form2.style.display = "none";
 let addAmountButton = document.getElementById("addAmountBTN");
 let addTransactionButton = document.getElementById("addTransactionBTN");
 
+let currentDate = new Date();
+let month =
+  currentDate.getMonth() + 1 >= 10
+    ? currentDate.getMonth() + 1
+    : `0${currentDate.getMonth() + 1}`;
+let day =
+  currentDate.getDate() >= 10
+    ? currentDate.getDate()
+    : `0${currentDate.getDate()}`;
+let year = currentDate.getFullYear();
+let fullDate = `${year}-${month}-${day}`;
+
 // دالة لإضافة العناصر إلى الصفحة
 
 function addElements(num, name, date, amount) {
-
   // إنشاء الصفوف والخلايى في الجدول
 
   let newRow = document.createElement("tr");
@@ -68,6 +79,7 @@ addAmountButton.onclick = function () {
   form2.style.display = "none";
   form1.style.display = "block";
   document.getElementById("amountName").focus();
+  document.getElementById("amountDate").value = fullDate;
 };
 addTransactionButton.onclick = function () {
   if (!amountValue) {
@@ -78,6 +90,7 @@ addTransactionButton.onclick = function () {
     form1.style.display = "none";
     form2.style.display = "block";
     document.getElementById("transactionName").focus();
+  document.getElementById("transactionDate").value = fullDate;
   }
 };
 document.querySelectorAll(".cancelBTN").forEach(function (element) {
@@ -127,6 +140,7 @@ form1.onsubmit = function (event) {
   showInfo(amountName, amountValue, amountDate);
 
   localStorage.setItem("amountData", JSON.stringify(amountStorage));
+
   form1.style.display = "none";
   document.getElementById("navList").style.display = "block";
   document.getElementById("box").style.display = "block";
@@ -142,7 +156,7 @@ let allTransactions = document.getElementById("allTransactions");
 
 form2.onsubmit = function (event) {
   event.preventDefault();
-  
+
   transactionName = document.getElementById("transactionName").value;
   transactionDate = document.getElementById("transactionDate").value;
   transactionAmount = parseInt(
@@ -158,9 +172,12 @@ form2.onsubmit = function (event) {
       transactionAmount,
     );
     form2.style.display = "none";
+      document.querySelectorAll(".values").forEach(function (element) {
+    element.value = "";
+  });
     document.getElementById("navList").style.display = "block";
     document.getElementById("box").style.display = "block";
-    transactionNumber ++;
+    transactionNumber++;
     transactionsStorage.push({
       name: transactionName,
       date: transactionDate,
@@ -189,7 +206,7 @@ window.onload = function () {
     amountValue = parseInt(aData.value);
     balens = amountValue;
     showInfo(aData.name, aData.value, aData.date);
-    document.getElementById("hr").style.display = "block"
+    document.getElementById("hr").style.display = "block";
   }
   tData = JSON.parse(localStorage.getItem("transactionsData"));
   if (tData) {

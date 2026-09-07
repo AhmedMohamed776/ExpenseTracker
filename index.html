@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مدير المصروفات</title>
+    <title>المدير المالي</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <header>
-      <h1>مدير المصروفات</h1>
+      <h1>المدير المالي</h1>
       <hr />
       <nav id="navList" aria-label="شريط التنقل">
         <ul>
@@ -53,7 +53,7 @@
                 <th>اسم المعاملة</th>
                 <th>تاريخ إجراء المعاملة</th>
                 <th>مبلغ المعاملة</th>
-                <th>المبلغ الأصلي قبل الخصم</th>
+                <th>المبلغ الأصلي قبل إجراء المعاملة</th>
                 <th>المبلغ المتبقي</th>
               </tr>
             </thead>
@@ -102,6 +102,7 @@
             type="text"
             name="transactionName"
             id="transactionName"
+            class="values"
             required
           />
         </div>
@@ -111,6 +112,7 @@
             type="number"
             name="transactionAmount"
             id="transactionAmount"
+            class="values"
             step="50"
             required
           />
